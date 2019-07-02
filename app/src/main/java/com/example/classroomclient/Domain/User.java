@@ -7,14 +7,26 @@ public class User
 {
     public String username;
     public String password;
-    public List<Class> creates;
-    public List<Class> joins;
+    public List<Classroom> creates;
+    public List<Classroom> joins;
 
-    public User(String username, String password){
+    public User() {
+        creates = new ArrayList<>();
+        joins = new ArrayList<>();
+    }
+
+    public User(String username, String password) {
+        this();
         this.username = username;
         this.password = password;
-        
-        creates = new ArrayList<Class>();
-        joins = new ArrayList<Class>();
+    }
+
+    public void addClassroomToCreates(Classroom classroom) {
+        creates.add(classroom);
+    }
+
+    public void emptyLists(){
+        creates = new ArrayList<>();
+        joins = new ArrayList<>();
     }
 }

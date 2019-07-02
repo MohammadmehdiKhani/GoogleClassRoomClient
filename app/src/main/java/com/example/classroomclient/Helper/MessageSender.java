@@ -12,9 +12,11 @@ import java.net.Socket;
 public class MessageSender extends AsyncTask<String, Void, JSONObject>
 {
     private int _port = 6666;
-    private String _host = "192.168.43.242";
+    //private String _host = "192.168.43.242";
+    private String _host = "192.168.1.249";
 
-    public MessageSender(){
+    public MessageSender()
+    {
     }
 
     @Override
@@ -22,7 +24,8 @@ public class MessageSender extends AsyncTask<String, Void, JSONObject>
     {
         JSONObject responseJson = new JSONObject();
 
-        try{
+        try
+        {
             Socket socket = new Socket(_host, _port);
             DataOutputStream dataOutputStream = new DataOutputStream(socket.getOutputStream());
             DataInputStream dataInputStream = new DataInputStream(socket.getInputStream());
@@ -36,7 +39,8 @@ public class MessageSender extends AsyncTask<String, Void, JSONObject>
             dataOutputStream.close();
             socket.close();
 
-        }catch(Exception exception){
+        } catch (Exception exception)
+        {
             Exception ex = exception;
         }
 

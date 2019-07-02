@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     android:gravity="center"
     android:orientation="vertical"
-    tools:context=".Activity.CreateClassActivity">
+    tools:context=".Activity.CreateClassroomActivity">
 
     <EditText
         android:id="@+id/name_etx"

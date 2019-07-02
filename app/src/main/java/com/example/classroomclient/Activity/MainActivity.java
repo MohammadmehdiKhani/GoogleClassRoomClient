@@ -25,7 +25,7 @@ public class MainActivity extends AppCompatActivity
 
     public void onCreateClicked(View view)
     {
-        Intent createClassIntent = new Intent(getBaseContext(), CreateClassActivity.class);
+        Intent createClassIntent = new Intent(getBaseContext(), CreateClassroomActivity.class);
         startActivity(createClassIntent);
     }
 }
