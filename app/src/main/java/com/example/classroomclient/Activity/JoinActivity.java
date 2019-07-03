@@ -8,6 +8,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.example.classroomclient.Command.JoinClassCommand;
 import com.example.classroomclient.Domain.Request;
@@ -35,60 +36,43 @@ public class JoinActivity extends AppCompatActivity
 
     public void onJoinClicked(View view)
     {
-        EditText code = findViewById(R.id.username_etx);
-        String codeString = code.getText().toString();
-
-
-        SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(this);
-        String username = settings.getString("username", "");
-        String password = settings.getString("password", "");
-
-        MessageSender messageSender = new MessageSender();
-        ObjectMapper objectMapper = new ObjectMapper();
-        RequestMeta meta = new RequestMeta("joinClass");
-        JoinClassCommand joinClassCommand=new JoinClassCommand(username,codeString,password);
-        Request request = new Request(meta,joinClassCommand);
-        String requestString = null;
         try
         {
-            requestString = objectMapper.writeValueAsString(request);
-        } catch (JsonProcessingException e)
-        {
-            e.printStackTrace();
-        }
+            //Read from UI
+            EditText code = findViewById(R.id.classCode_etx);
+            String codeString = code.getText().toString();
 
+            SharedPreferences prefs = getApplicationContext().getSharedPreferences("Session", Context.MODE_PRIVATE);
+            String username = prefs.getString("username", null);
 
-        try
-        {
+            //Create request
+            MessageSender messageSender = new MessageSender();
+            ObjectMapper objectMapper = new ObjectMapper();
+            RequestMeta meta = new RequestMeta("joinClass");
+            JoinClassCommand joinClassCommand = new JoinClassCommand(username, codeString);
+            Request request = new Request(meta, joinClassCommand);
+
+            String requestString = objectMapper.writeValueAsString(request);
+
             JSONObject responseJson = messageSender.execute(requestString).get();
+
             //Parse response
             String metaString = responseJson.get("meta").toString();
             JSONObject metaJson = new JSONObject(metaString);
             String result = metaJson.get("result").toString();
             String message = metaJson.get("message").toString();
-
             String joinedClassData = responseJson.get("data").toString();
 
+            Toast.makeText(JoinActivity.this, message, Toast.LENGTH_LONG).show();
             if (result.equals("success"))
             {
                 Intent entranceIntent = new Intent(getBaseContext(), ClassroomActivity.class);
                 entranceIntent.putExtra("classroom", joinedClassData);
                 startActivity(entranceIntent);
             }
-
-
-        } catch (ExecutionException e)
-        {
-            e.printStackTrace();
-        } catch (InterruptedException e)
-        {
-            e.printStackTrace();
-        } catch (JSONException e)
+        } catch (Exception e)
         {
             e.printStackTrace();
         }
-
     }
-
-
 }

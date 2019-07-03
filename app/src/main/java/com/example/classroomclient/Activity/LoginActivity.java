@@ -73,7 +73,6 @@ public class LoginActivity extends AppCompatActivity
                 SharedPreferences sharedPreferences = getApplicationContext().getSharedPreferences("Session", Context.MODE_PRIVATE); // 0 - for private mode
                 SharedPreferences.Editor editor = sharedPreferences.edit();
                 editor.putString("username", username.getText().toString());
-                editor.putString("password", username.getText().toString());
                 editor.commit();
 
                 Intent entranceIntent = new Intent(getBaseContext(), MainActivity.class);
