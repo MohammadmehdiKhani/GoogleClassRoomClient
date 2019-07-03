@@ -1,9 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Activity.JoinActivity">
+    android:gravity="center"
+    android:orientation="vertical"
+    tools:context=".Activity.CreateClassroomActivity">
 
-</android.support.constraint.ConstraintLayout>
+    <EditText
+        android:id="@+id/classCode_etx"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint="Class code"
+        android:inputType="textPersonName" />
+
+    <Button
+        android:id="@+id/join_btn"
+        android:onClick="onJoinClicked"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Join"
+        tools:ignore="OnClick" />
+</LinearLayout>

@@ -54,7 +54,7 @@ public class LoginActivity extends AppCompatActivity
             ObjectMapper objectMapper = new ObjectMapper();
             RequestMeta meta = new RequestMeta("login");
             User userToRegister = new User(username.getText().toString(), password.getText().toString());
-            Request request = new Request(meta,userToRegister);
+            Request request = new Request(meta, userToRegister);
             String requestString = objectMapper.writeValueAsString(request);
 
             //Send request and get response
@@ -73,7 +73,9 @@ public class LoginActivity extends AppCompatActivity
                 SharedPreferences sharedPreferences = getApplicationContext().getSharedPreferences("Session", Context.MODE_PRIVATE); // 0 - for private mode
                 SharedPreferences.Editor editor = sharedPreferences.edit();
                 editor.putString("username", username.getText().toString());
+                editor.putString("password", username.getText().toString());
                 editor.commit();
+
                 Intent entranceIntent = new Intent(getBaseContext(), MainActivity.class);
                 startActivity(entranceIntent);
             }
