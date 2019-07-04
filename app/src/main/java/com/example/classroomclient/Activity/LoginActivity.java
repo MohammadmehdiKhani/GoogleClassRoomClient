@@ -49,6 +49,28 @@ public class LoginActivity extends AppCompatActivity
 		
 		
 	}
+	
+	
+    //SHOROOE COMITE 2
+    private void openGallery() {
+
+        Intent gallery = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+        startActivityForResult(gallery, PICK_IMAGE);
+
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == RESULT_OK && requestCode == PICK_IMAGE) {
+            imageUri = data.getData();
+            imageView.setImageURI(imageUri);
+
+        }
+
+    }
+
+    //PAYAN
 
     public void onLoginClicked(View view)
     {
