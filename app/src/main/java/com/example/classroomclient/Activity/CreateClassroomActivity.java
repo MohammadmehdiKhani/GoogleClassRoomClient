@@ -3,9 +3,11 @@ package com.example.classroomclient.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
@@ -22,37 +24,65 @@ import org.json.JSONObject;
 public class CreateClassroomActivity extends AppCompatActivity
 {
 
+    EditText name,description,room;
+    Button cancel;
+
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_createclassroom);
+
+        name = findViewById(R.id.name_etx);
+        room = findViewById(R.id.room_etx);
+        description= findViewById(R.id.description_etx);
+
+        name.setOnFocusChangeListener(new View.OnFocusChangeListener() {//BAAD AZ INKE KARBAR POR KARD FIELD HA RO BEHESH PAYAM NESHON MIDIM NA BAAD AZ ZADAN E DOKME
+
+            @Override
+            public void onFocusChange(View view, boolean b) {
+
+                if (name.getText().length() == 0) {
+                    name.setError("name can not be empty");
+                }
+
+            }
+
+        });
+        room.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+
+            @Override
+            public void onFocusChange(View view, boolean b) {
+
+                if (room.getText().length() == 0) {
+                    room.setError("room can not be empty");
+                }
+
+            }
+
+        });
+
+
     }
+
+
 
     public void onCreateClicked(View view)
     {
         try
         {
-            EditText nameEditText = findViewById(R.id.name_etx);
-            EditText descriptionEditText = findViewById(R.id.description_etx);
-            EditText roomEditText = findViewById(R.id.room_etx);
 
-            String name = nameEditText.getText().toString();
-            String description = descriptionEditText.getText().toString();
-            String room = roomEditText.getText().toString();
+            String name1 = name.getText().toString();
+            String room1 = room.getText().toString();
 
-            if (nameEditText.length() == 0 || roomEditText.length() == 0)
+            if (name1.length() != 0 && room1.length() != 0)
             {
-                if (roomEditText.length() == 0)
-                {
-                    roomEditText.setError("Room can not be empty");
-                }
+                Toast.makeText(this, "you can createyour class!!", Toast.LENGTH_LONG).show();
 
-                if (nameEditText.length() == 0)
-                {
-                    nameEditText.setError("Name length can not be empty");
-                }
-                return;
+
+            }
+            else {
+                Toast.makeText(this, "please fix the errors first", Toast.LENGTH_LONG).show();
             }
 
             SharedPreferences sharedPreferences = getApplicationContext().getSharedPreferences("Session", Context.MODE_PRIVATE);
