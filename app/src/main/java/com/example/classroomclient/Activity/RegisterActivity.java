@@ -34,6 +34,20 @@ public class RegisterActivity extends AppCompatActivity
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
+		
+		
+//SHOROOE COMITE 2
+        imageView = (ImageView) findViewById(R.id.imageView);
+        choose_btn = (Button) findViewById(R.id.choose_btn);
+
+        choose_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                openGallery();
+            }
+        });
+        //PAYAN
+
     }
 
     public void onRegisterClicked(View view)
