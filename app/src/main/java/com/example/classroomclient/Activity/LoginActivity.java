@@ -20,6 +20,13 @@ import org.json.JSONObject;
 
 public class LoginActivity extends AppCompatActivity
 {
+	
+	//SHOROOE COMITE 2
+    ImageView imageView;
+    Button choose_btn;
+    private static final int PICK_IMAGE = 100;
+    Uri imageUri;
+    //PAYAN
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
