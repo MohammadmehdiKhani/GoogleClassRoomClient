@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -7,13 +8,18 @@
     android:orientation="vertical"
     tools:context=".Activity.RegisterActivity">
 
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="183dp"
+        android:layout_height="183dp"
+        app:srcCompat="@android:drawable/screen_background_light" />
+
     <Button
-        android:id="@+id/register_btn"
+        android:id="@+id/choose_btn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:onClick="onRegisterClicked"
-        android:text="Register" />
-
+        android:text="Choose Photo" />
 
     <EditText
         android:id="@+id/username_etx"
@@ -29,6 +35,12 @@
         android:layout_height="wrap_content"
         android:ems="10"
         android:hint="Password"
-        android:inputType="textPassword" />
+        android:inputType="textPersonName" />
 
+    <Button
+        android:id="@+id/register_btn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:onClick="onRegisterClicked"
+        android:text="Register" />
 </LinearLayout>
