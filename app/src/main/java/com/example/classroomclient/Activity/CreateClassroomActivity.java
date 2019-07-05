@@ -33,6 +33,7 @@ public class CreateClassroomActivity extends AppCompatActivity
     {
         try
         {
+            //Read from UI
             EditText nameEditText = findViewById(R.id.name_etx);
             EditText descriptionEditText = findViewById(R.id.description_etx);
             EditText roomEditText = findViewById(R.id.room_etx);
@@ -58,6 +59,7 @@ public class CreateClassroomActivity extends AppCompatActivity
             SharedPreferences sharedPreferences = getApplicationContext().getSharedPreferences("Session", Context.MODE_PRIVATE);
             String username = sharedPreferences.getString("username", null);
 
+            //Create request
             CreateClassCommand createClassCommand = new CreateClassCommand(username, name, description, room);
             RequestMeta meta = new RequestMeta("createClass");
             Request request = new Request(meta, createClassCommand);
