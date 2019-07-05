@@ -71,7 +71,6 @@ public class CreateClassroomActivity extends AppCompatActivity
     {
         try
         {
-
             String name1 = name.getText().toString();
             String room1 = room.getText().toString();
 
@@ -88,6 +87,7 @@ public class CreateClassroomActivity extends AppCompatActivity
             SharedPreferences sharedPreferences = getApplicationContext().getSharedPreferences("Session", Context.MODE_PRIVATE);
             String username = sharedPreferences.getString("username", null);
 
+            //Create request
             CreateClassCommand createClassCommand = new CreateClassCommand(username, name, description, room);
             RequestMeta meta = new RequestMeta("createClass");
             Request request = new Request(meta, createClassCommand);
