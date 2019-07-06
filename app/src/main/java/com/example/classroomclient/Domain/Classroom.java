@@ -12,13 +12,17 @@ public class Classroom
 
     public List<User> teachers;
     public List<User> students;
+    public List<Assignment> assignments;
 
-    public Classroom() {
+    public Classroom()
+    {
         teachers = new ArrayList<>();
         students = new ArrayList<>();
+        assignments = new ArrayList<>();
     }
 
-    public Classroom(String name, String description, String room, String code) {
+    public Classroom(String name, String description, String room, String code)
+    {
         this();
         this.name = name;
         this.description = description;
@@ -26,16 +30,25 @@ public class Classroom
         this.code = code;
     }
 
-    public void addTeacher(User teacher) {
+    public void addTeacher(User teacher)
+    {
         teachers.add(teacher);
     }
 
-    public void addStudent(User student) {
+    public void addStudent(User student)
+    {
         students.add(student);
     }
 
-    public void emptyLists(){
+    public void addAssignment(Assignment assignment)
+    {
+        assignments.add(assignment);
+    }
+
+    public void emptyLists()
+    {
         teachers = new ArrayList<>();
         students = new ArrayList<>();
+        assignments = new ArrayList<>();
     }
 }

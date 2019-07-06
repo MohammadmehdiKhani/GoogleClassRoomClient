@@ -44,7 +44,7 @@ public class MainActivity extends AppCompatActivity
             GetClassroomsOfUser getClassroomsOfUser = new GetClassroomsOfUser(username);
             RequestMeta meta = new RequestMeta("getClassroomsOfUser");
             Request request = new Request(meta, getClassroomsOfUser);
-            ObjectMapper objectMapper = new ObjectMapper();
+            final ObjectMapper objectMapper = new ObjectMapper();
             String requestString = objectMapper.writeValueAsString(request);
             MessageSender messageSender = new MessageSender();
             JSONObject responseJson = messageSender.execute(requestString).get();
@@ -72,8 +72,18 @@ public class MainActivity extends AppCompatActivity
                     @Override
                     public void onItemClick(AdapterView<?> adapterView, View view, int position, long id)
                     {
-                        Classroom classroom = (Classroom) classroomsListView.getItemAtPosition(position);
-                        Toast.makeText(MainActivity.this, "Selected :" + " " + classroom.name + ", " + classroom.room, Toast.LENGTH_SHORT).show();
+                        try
+                        {
+                            Classroom classroom = (Classroom) classroomsListView.getItemAtPosition(position);
+                            String classroomString = objectMapper.writeValueAsString(classroom);
+
+                            Intent streamIntent = new Intent(getBaseContext(), StreamActivity.class);
+                            streamIntent.putExtra("classroom", classroomString);
+                            startActivity(streamIntent);
+                        } catch (Exception e)
+                        {
+                            e.printStackTrace();
+                        }
                     }
                 });
             }

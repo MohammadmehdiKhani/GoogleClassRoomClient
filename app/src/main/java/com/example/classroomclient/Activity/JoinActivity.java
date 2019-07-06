@@ -3,7 +3,6 @@ package com.example.classroomclient.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -13,16 +12,11 @@ import android.widget.Toast;
 import com.example.classroomclient.Command.JoinClassCommand;
 import com.example.classroomclient.Domain.Request;
 import com.example.classroomclient.Domain.RequestMeta;
-import com.example.classroomclient.Domain.User;
 import com.example.classroomclient.Helper.MessageSender;
 import com.example.classroomclient.R;
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import org.json.JSONException;
 import org.json.JSONObject;
-
-import java.util.concurrent.ExecutionException;
 
 public class JoinActivity extends AppCompatActivity
 {
@@ -66,7 +60,7 @@ public class JoinActivity extends AppCompatActivity
             Toast.makeText(JoinActivity.this, message, Toast.LENGTH_LONG).show();
             if (result.equals("success"))
             {
-                Intent entranceIntent = new Intent(getBaseContext(), ClassroomActivity.class);
+                Intent entranceIntent = new Intent(getBaseContext(), StreamActivity.class);
                 entranceIntent.putExtra("classroom", joinedClassData);
                 startActivity(entranceIntent);
             }

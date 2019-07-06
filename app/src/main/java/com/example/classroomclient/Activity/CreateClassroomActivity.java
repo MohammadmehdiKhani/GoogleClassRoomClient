@@ -3,16 +3,16 @@ package com.example.classroomclient.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.provider.MediaStore;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
 import com.example.classroomclient.Command.CreateClassCommand;
-import com.example.classroomclient.Domain.Classroom;
 import com.example.classroomclient.Domain.Request;
 import com.example.classroomclient.Domain.RequestMeta;
 import com.example.classroomclient.Helper.MessageSender;
@@ -23,9 +23,8 @@ import org.json.JSONObject;
 
 public class CreateClassroomActivity extends AppCompatActivity
 {
-
-    EditText name,description,room;
-    Button cancel;
+    EditText nameEditText, descriptionEditText, roomEditText;
+    Button createButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -33,56 +32,88 @@ public class CreateClassroomActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_createclassroom);
 
-        name = findViewById(R.id.name_etx);
-        room = findViewById(R.id.room_etx);
-        description= findViewById(R.id.description_etx);
+        nameEditText = findViewById(R.id.name_etx);
+        roomEditText = findViewById(R.id.room_etx);
+        descriptionEditText = findViewById(R.id.description_etx);
+        createButton = findViewById(R.id.create_btn);
 
-        name.setOnFocusChangeListener(new View.OnFocusChangeListener() {//BAAD AZ INKE KARBAR POR KARD FIELD HA RO BEHESH PAYAM NESHON MIDIM NA BAAD AZ ZADAN E DOKME
-
+        TextWatcher nameTextWatcher = new TextWatcher()
+        {
             @Override
-            public void onFocusChange(View view, boolean b) {
-
-                if (name.getText().length() == 0) {
-                    name.setError("name can not be empty");
-                }
-
+            public void beforeTextChanged(CharSequence s, int start, int count, int after)
+            {
             }
 
-        });
-        room.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-
             @Override
-            public void onFocusChange(View view, boolean b) {
-
-                if (room.getText().length() == 0) {
-                    room.setError("room can not be empty");
-                }
-
+            public void onTextChanged(CharSequence s, int start, int before, int count)
+            {
             }
 
-        });
+            @Override
+            public void afterTextChanged(Editable s)
+            {
+                int nameEditTextLength = nameEditText.getText().length();
+                int roomEditTextLength = roomEditText.getText().length();
 
+                if (nameEditTextLength == 0)
+                {
+                    nameEditText.setError("name can not be empty");
+                }
 
+                if (nameEditTextLength == 0 || roomEditTextLength == 0)
+                {
+                    createButton.setEnabled(false);
+                } else
+                {
+                    createButton.setEnabled(true);
+                }
+            }
+        };
+
+        TextWatcher roomTextWatcher = new TextWatcher()
+        {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after)
+            {
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count)
+            {
+            }
+
+            @Override
+            public void afterTextChanged(Editable s)
+            {
+                int nameEditTextLength = nameEditText.getText().length();
+                int roomEditTextLength = roomEditText.getText().length();
+
+                if (roomEditTextLength == 0)
+                {
+                    roomEditText.setError("room can not be empty");
+                }
+
+                if (nameEditTextLength == 0 || roomEditTextLength == 0)
+                {
+                    createButton.setEnabled(false);
+                } else
+                {
+                    createButton.setEnabled(true);
+                }
+            }
+        };
+
+        nameEditText.addTextChangedListener(nameTextWatcher);
+        roomEditText.addTextChangedListener(roomTextWatcher);
     }
-
-
 
     public void onCreateClicked(View view)
     {
         try
         {
-            String name1 = name.getText().toString();
-            String room1 = room.getText().toString();
-
-            if (name1.length() != 0 && room1.length() != 0)
-            {
-                Toast.makeText(this, "you can createyour class!!", Toast.LENGTH_LONG).show();
-
-
-            }
-            else {
-                Toast.makeText(this, "please fix the errors first", Toast.LENGTH_LONG).show();
-            }
+            String name = nameEditText.getText().toString();
+            String room = roomEditText.getText().toString();
+            String description = descriptionEditText.getText().toString();
 
             SharedPreferences sharedPreferences = getApplicationContext().getSharedPreferences("Session", Context.MODE_PRIVATE);
             String username = sharedPreferences.getString("username", null);
@@ -110,9 +141,9 @@ public class CreateClassroomActivity extends AppCompatActivity
             {
                 String dataString = responseJson.get("data").toString();
 
-                Intent entranceIntent = new Intent(getBaseContext(), ClassroomActivity.class);
-                entranceIntent.putExtra("classroom", dataString);
-                startActivity(entranceIntent);
+                Intent streamIntent = new Intent(getBaseContext(), StreamActivity.class);
+                streamIntent.putExtra("classroom", dataString);
+                startActivity(streamIntent);
             }
         } catch (Exception exception)
         {
